@@ -2,7 +2,7 @@
 
 A lightweight **automatic differentiation engine** implemented from scratch in modern C++. Inspired by [micrograd](https://github.com/karpathy/micrograd), this engine supports building computation graphs, performing backpropagation, and calculating gradients — all with intuitive operator overloading.
 
-🚀 **Great for learning deep learning internals and autodiff!**
+🚀 **Great for learning deep-learning internals and autodiff!**
 
 ---
 
