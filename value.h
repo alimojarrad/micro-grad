@@ -28,6 +28,8 @@ public:
   shared_ptr<value> operator-(const shared_ptr<value>& v) const;
   shared_ptr<value> pow(double v) const;
   shared_ptr<value> tanh() const;
+  shared_ptr<value> relu() const;
+  shared_ptr<value> sigmoid() const;
   vector<shared_ptr<value>> getParents();
   void backward();
   friend std::ostream& operator<<(std::ostream& os, const std::shared_ptr<value>& v);

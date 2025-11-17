@@ -146,6 +146,31 @@ shared_ptr<value> value::tanh() const {
     };
     return res;
 }
+shared_ptr<value> value::relu() const {
+    double out = this->data > 0 ? this->data : 0;
+    auto res = make_shared<value>(out);
+    res->_prev.push_back(shared_ptr<value>(const_cast<value*>(this), [](value*) {}));
+    res->op = "relu";
+    auto self = shared_ptr<value>(const_cast<value*>(this), [](value*) {});
+    res->_backward = [self, res]() {
+        double grad_contrib = self->data > 0 ? 1.0 : 0.0;
+        self->grad += grad_contrib * res->grad;
+    };
+    return res;
+}
+shared_ptr<value> value::sigmoid() const {
+    double t = this->data;
+    double out = 1 / (1 + std::exp(-t));
+    auto res = make_shared<value>(out);
+    res->_prev.push_back(shared_ptr<value>(const_cast<value*>(this), [](value*) {}));
+    res->op = "sigmoid";
+    auto self = shared_ptr<value>(const_cast<value*>(this), [](value*) {});
+    res->_backward = [self, res]() {
+        double sigmoid_grad = res->data * (1.0 - res->data);
+        self->grad += sigmoid_grad * res->grad;
+    };
+    return res;
+}
 void value::backward() {
     vector<shared_ptr<value>> topo;
     unordered_set<value*> visited;

@@ -11,7 +11,7 @@ A lightweight **automatic differentiation engine** implemented from scratch in m
 - Reverse-mode automatic differentiation (backpropagation)
 - Modern C++ design using `std::shared_ptr` for safe dynamic computation graph handling
 - Operator overloading for arithmetic operations (`+`, `-`, `*`, `/`, `pow`)
-- Support for basic activation functions (e.g. `tanh`)
+- Support for basic activation functions (e.g. `tanh`, `ReLU`, `sigmoid`)
 - Differentiable graph with lazy backward evaluation
 - Gradient propagation through flexible computation structures
 
