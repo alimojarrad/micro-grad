@@ -1,0 +1,10 @@
+tree.h
+tree.cpp
+priorityqueue.h
+priorityqueue.cpp
+linkedlist.h
+linkedlist.cpp
+queue.h
+queue.cpp
+main
+.vscode/
