@@ -33,9 +33,9 @@ int main() {
 
     c->backward();
 
-    std::cout << *c << std::endl;  // data and grad
-    std::cout << *a << std::endl;  // grad = ∂c/∂a
-    std::cout << *b << std::endl;  // grad = ∂c/∂b
+    std::cout << c << std::endl;  // data and grad
+    std::cout << a << std::endl;  // grad = ∂c/∂a
+    std::cout << b << std::endl;  // grad = ∂c/∂b
 
     return 0;
 }
