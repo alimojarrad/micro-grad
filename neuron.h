@@ -16,7 +16,7 @@ class neuron {
       vector<shared_ptr<value>> parameters;
       string activation;
     public:
-      vector<shared_ptr<value>> getParameters() const;
+      vector<shared_ptr<value>> getParameters();
       shared_ptr<value> forward(vector<shared_ptr<value>> x);
       neuron(int nin, string activation);
 };

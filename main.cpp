@@ -1,29 +1,47 @@
 #include <iostream>
 #include <vector>
 #include <memory>
-#include "neuron.h"  // Make sure to include your neuron and value headers
+#include "layer.h"
+#include "mlp.h"   
+#include "neuron.h"  
 
 using namespace std;
 
 int main() {
-    // Create a neuron with 3 inputs
-    neuron n(3, "tanh");
+    mlp model(3, {4, 4, 1}, "relu");
 
-    // Print initial weights and bias
-    cout << "Weights:" << endl;
-    // Create input values as shared_ptr<value>
-    vector<shared_ptr<value>> arr = {
+    vector<shared_ptr<value>> sample = {
         make_shared<value>(1.0),
         make_shared<value>(-2.0),
         make_shared<value>(0.5)
     };
-    // Forward pass through the neuron
-    auto out = n.forward(arr);
-    for(auto i : n.getParameters()) {
-        cout << i << endl;
+
+    vector<shared_ptr<value>> target = {
+        make_shared<value>(1.0)
+    };
+
+    auto out = model.forward(sample);
+
+    shared_ptr<value> loss = make_shared<value>(0.0);
+    for (int i = 0; i < out.size(); i++) {
+        auto diff = out[i] - target[i];
+        loss = *loss + (diff * diff);
     }
-    // Print the raw output (before activation)
-    cout << "Output of neuron: " << out->item() << endl;
+
+    loss->backward();
+
+    auto params = model.getParameters();
+
+    double lr = 0.01;
+    for (auto& layer_params : params) {
+        for (auto& p : layer_params) {
+            for (auto& w : p) {
+                w->data -= lr * w->grad;
+            }
+        }
+    }
+
+    cout << "Loss: " << loss->item() << endl;
 
     return 0;
 }

@@ -17,9 +17,9 @@ neuron::neuron(int nin, string activation) {
     this->nin = nin;
     this->activation = activation;
     for(int i = 0; i < nin; i++) {
-        this->weight.push_back(make_shared<value>(random_uniform(-0.5, 0.5)));
+        this->weight.push_back(make_shared<value>(random_uniform(-1, 1)));
     }
-    this->bias = make_shared<value>(random_uniform(-0.5, 0.5));
+    this->bias = make_shared<value>(random_uniform(-1, 1));
 }
 shared_ptr<value> neuron::forward(vector<shared_ptr<value>> x) {
     shared_ptr<value> output = this->bias;
@@ -36,8 +36,8 @@ shared_ptr<value> neuron::forward(vector<shared_ptr<value>> x) {
         return output;
     }
 }
-vector<shared_ptr<value>> neuron::getParameters() const  {
-    vector<shared_ptr<value>> params = weight;  // copy weights
-    params.push_back(bias);                    // add bias
+vector<shared_ptr<value>> neuron::getParameters() {
+    vector<shared_ptr<value>> params = weight;  
+    params.push_back(bias);                    
     return params;   
 }

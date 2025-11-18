@@ -6,6 +6,9 @@
 using namespace std;
 value::value(double data) {
     this->data = data;
+    this->grad = 0.0;
+    this->op = "";
+    this->_backward = []() {};
 }
 shared_ptr<value> value::operator+(double v) const {
     double out = data + v;
@@ -186,7 +189,9 @@ void value::backward() {
     build(shared_from_this());
     this->grad = 1.0;
     for (auto it = topo.rbegin(); it != topo.rend(); ++it) {
-        (*it)->_backward();
+        if ((*it)->_backward) {
+            (*it)->_backward();
+        }
     }
 }
 shared_ptr<value> operator*(const shared_ptr<value>& left, double right) {
