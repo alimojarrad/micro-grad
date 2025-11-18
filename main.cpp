@@ -1,24 +1,29 @@
-#include "value.h"
 #include <iostream>
+#include <vector>
+#include <memory>
+#include "neuron.h"  // Make sure to include your neuron and value headers
+
+using namespace std;
 
 int main() {
-    auto x = std::make_shared<value>(-1.5);
-    auto y = std::make_shared<value>(2.0);
-    
-    auto a = x->tanh();      
-    auto b = y->relu();      
-    auto c = a + b;          
-    auto d = c->sigmoid();   
-    
-    d->backward();
-    
-    std::cout << "=== Forward and Backward Pass ===\n";
-    std::cout << "x: " << x << " (input to tanh)\n";
-    std::cout << "y: " << y << " (input to relu)\n";
-    std::cout << "a = tanh(x): " << a << "\n";
-    std::cout << "b = relu(y): " << b << "\n";
-    std::cout << "c = a + b: " << c << "\n";
-    std::cout << "d = sigmoid(c): " << d << " <-- Output\n";
-    
+    // Create a neuron with 3 inputs
+    neuron n(3, "tanh");
+
+    // Print initial weights and bias
+    cout << "Weights:" << endl;
+    // Create input values as shared_ptr<value>
+    vector<shared_ptr<value>> arr = {
+        make_shared<value>(1.0),
+        make_shared<value>(-2.0),
+        make_shared<value>(0.5)
+    };
+    // Forward pass through the neuron
+    auto out = n.forward(arr);
+    for(auto i : n.getParameters()) {
+        cout << i << endl;
+    }
+    // Print the raw output (before activation)
+    cout << "Output of neuron: " << out->item() << endl;
+
     return 0;
 }
