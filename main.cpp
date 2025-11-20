@@ -3,8 +3,8 @@
 #include <memory>
 #include "layer.h"
 #include "mlp.h"   
-#include "neuron.h"  
-
+#include "neuron.h" 
+ 
 using namespace std;
 
 int main() {
